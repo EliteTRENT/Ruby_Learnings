@@ -15,13 +15,14 @@ class Manager < Employee
     super(name,salary)
   end
 
-  def bonus(amt)
-    @salary += amt
-    puts "Manager #{@name} got a bonus of #{amt}!"
+  def bonus(employee, amt)
+    employee.salary += amt
+    puts "Bonus of #{amt} added to #{employee.name}'s account"
   end
 end
 
 class Developer < Employee
+  attr_accessor :name, :salary
   def initialize(name,salary)
     super(name,salary)
   end
@@ -29,13 +30,13 @@ class Developer < Employee
   def increase(percent)
     temp = percent.to_f*@salary/100
     @salary += temp
-    puts "Developer #{@name} an increase of #{percent}% in salary!"
+    puts "#{@name} got an increase of #{percent}% in salary!"
   end
 end
 
 manager = Manager.new("Aryan",50000)
 developer = Developer.new("Aalekh",2000)
-manager.bonus(25000)
+manager.bonus(developer,25000)
 developer.increase(2)
 manager.display_details
 developer.display_details
