@@ -1,3 +1,9 @@
+class InsufficientBalance < StandardError
+  def initialize(message)
+    super(message)
+  end
+end
+
 class BankAccount
   def initialize(balance)
     @balance = balance
@@ -9,11 +15,15 @@ class BankAccount
   end
 
   def withdraw(amt)
-    if amt <= @balance
-      @balance -= amt
-      puts "Money Debited: #{amt}"
-    else 
-      puts "Not enough balance"
+    begin
+      if amt > @balance
+        raise InsufficientBalance.new("Trying to debit amount greater than the current balance!")
+      else 
+        @balance -= amt
+        puts "Money Debited: #{amt}"
+      end
+    rescue InsufficientBalance => e
+      puts "Error: #{e.message}"
     end
   end
 
