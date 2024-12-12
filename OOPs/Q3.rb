@@ -10,7 +10,7 @@ class Circle < Shape
   end
 
   def area
-    puts "Area of circle: #{22.0/7*@radius*@radius}"
+    puts "Area of circle: #{Math::PI*@radius*@radius}"
   end
 end
 
