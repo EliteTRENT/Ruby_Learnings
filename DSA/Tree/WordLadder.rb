@@ -20,7 +20,6 @@ def word_ladder(start_word,target_word,word_list_array)
     end 
 
     (0...word.length).each do |i|
-      original_char = word[i]
       ('a'..'z').each do |char|
         modified_word = word.dup
         modified_word[i] = char

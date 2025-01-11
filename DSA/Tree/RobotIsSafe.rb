@@ -49,7 +49,6 @@ rows.times do
   matrix << row
 end
 
-string = gets.chomp
 
 coordinates =   
 if coordinates == nil
