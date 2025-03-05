@@ -34,5 +34,18 @@ Updating a Note: Replaces the note dynamically.
 
 Deleting a Note: Instantly removes the note from the page.
 
+Task 3: Filters in Rails
 
+Filters in Rails are used to execute code before, after, or around controller actions. They help in authentication, logging, validation, and other functionalities without cluttering the controller methods.
 
+Implementation
+
+Used a before_action filter called set_note. This is a Rails controller hook that runs before specific actions (show, edit, update, destroy). It ensures that the @note instance variable is set before executing those actions.
+
+Working
+
+Filters execute before or after the controller actions based on their type.
+
+They enhance security, logging, and validation.
+
+Reduce redundant code by handling common logic in a single place.
