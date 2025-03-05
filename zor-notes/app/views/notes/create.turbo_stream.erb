@@ -1,0 +1,11 @@
+<turbo-stream action="append" target="notes">
+  <template>
+    <%= render partial: "notes/note", formats: [:html], locals: { note: @note } %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="new_note">
+  <template>
+    <%= link_to "New note", new_note_path, data: { turbo_frame: "new_note" } %>
+  </template>
+</turbo-stream>

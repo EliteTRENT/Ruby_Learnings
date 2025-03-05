@@ -4,6 +4,7 @@ class NotesController < ApplicationController
   # GET /notes or /notes.json
   def index
     @notes = Note.all
+    @note = Note.new
   end
 
   # GET /notes/1 or /notes/1.json
@@ -13,6 +14,7 @@ class NotesController < ApplicationController
   # GET /notes/new
   def new
     @note = Note.new
+    render partial: "notes/form", locals: { note: @note }
   end
 
   # GET /notes/1/edit
@@ -25,11 +27,11 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
-        format.html { redirect_to @note, notice: "Note was successfully created." }
-        format.json { render :show, status: :created, location: @note }
+        format.turbo_stream
+        format.html { redirect_to notes_path, notice: "Note was successfully created." }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_note", partial: "notes/form", locals: { note: @note }) }
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,22 +40,23 @@ class NotesController < ApplicationController
   def update
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to @note, notice: "Note was successfully updated." }
-        format.json { render :show, status: :ok, location: @note }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@note, partial: "notes/note", locals: { note: @note }) }
+        format.html { redirect_to notes_path, notice: "Note was successfully updated." }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@note, partial: "notes/form", locals: { note: @note }) }
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /notes/1 or /notes/1.json
   def destroy
-    @note.destroy
+    @note = Note.find(params[:id])
+    @note.destroy!
 
     respond_to do |format|
-      format.html { redirect_to notes_path, status: :see_other, notice: "Note was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@note) }
+      format.html { redirect_to notes_path, notice: "Note was successfully deleted." }
     end
   end
 

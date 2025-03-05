@@ -1,16 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Notes" %>
-
 <h1>Notes</h1>
 
 <div id="notes">
+  <%= turbo_stream_from "notes" %>
   <% @notes.each do |note| %>
-    <%= render note %>
-    <p>
-      <%= link_to "Show this note", note %>
-    </p>
+    <%= render partial: "notes/note", locals: { note: note } %>
   <% end %>
 </div>
 
-<%= link_to "New note", new_note_path %>
+<turbo-frame id="new_note">
+  <%= link_to "New note", new_note_path, data: { turbo_frame: "new_note" } %>
+</turbo-frame>

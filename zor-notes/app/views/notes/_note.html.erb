@@ -1,12 +1,7 @@
-<div id="<%= dom_id note %>">
-  <p>
-    <strong>Title:</strong>
-    <%= note.title %>
-  </p>
+<turbo-frame id="<%= dom_id(note) %>">
+  <p><%= note.title %></p>
+  <p><%= note.content %></p>
 
-  <p>
-    <strong>Content:</strong>
-    <%= note.content %>
-  </p>
-
-</div>
+  <%= link_to "Edit", edit_note_path(note), data: { turbo_frame: dom_id(note) } %>
+  <%= link_to "Delete", note, method: :delete, data: { turbo_method: :delete } %>
+</turbo-frame>

@@ -1,27 +1,28 @@
-<%= form_with(model: note) do |form| %>
-  <% if note.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+<turbo-frame id="<%= dom_id(note) %>">
+  <%= form_with(model: note, data: { turbo: true }) do |form| %>
+    <% if note.errors.any? %>
+      <div>
+        <h2><%= pluralize(note.errors.count, "error") %> prevented this note from being saved:</h2>
+        <ul>
+          <% note.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% note.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :content %>
+      <%= form.text_area :content %>
+    </div>
+
+    <div>
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.textarea :content %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</turbo-frame>

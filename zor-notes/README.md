@@ -1,7 +1,38 @@
-Task 1: 
-Scaffolding 
-It generates a controller for the model with standard RESTful actions which allows CRUD operations
-Can be seen in the file (./app/controllers/notes_controller.rb)
-Working:
-Start the rails server, follow the local host link then append "/model_name" which is "/notes" in our case.
+Task 1: Scaffolding
+
+Scaffolding in Rails generates a controller for the model with standard RESTful actions, allowing CRUD operations.
+
+Implementation
+
+The controller handling CRUD operations can be found in:
+./app/controllers/notes_controller.rb
+
+Working
+
+Start the Rails server.
+
+Follow the localhost link.
+
+Append "/model_name" to the URL (in this case, /notes).
+
+
+Task 2: Turbo
+
+Turbo is a tool in Rails that speeds up web applications by reducing the need for full-page reloads. It achieves this by handling page updates via WebSockets.
+
+Implementation
+
+Turbo Streams dynamically update the page when creating, updating, or deleting notes.
+
+Located in: app/views/notes/ (e.g., create.turbo_stream.erb, update.turbo_stream.erb, destroy.turbo_stream.erb)
+
+Working
+
+Creating a Note: Instantly appears at the bottom without refreshing the page.
+
+Updating a Note: Replaces the note dynamically.
+
+Deleting a Note: Instantly removes the note from the page.
+
+
 
